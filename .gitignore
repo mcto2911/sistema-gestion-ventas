@@ -1,0 +1,14 @@
+# Dependencias de Node
+node_modules/
+frontend/node_modules/
+
+# Archivos de build
+frontend/dist/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales que usamos solo para pruebas
+api/generar_hash.php
+api/test.php

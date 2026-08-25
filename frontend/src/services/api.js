@@ -1,0 +1,98 @@
+// api.js - Funciones para comunicarse con el backend PHP
+
+const API_URL = 'http://localhost/gestion-ventas/api';
+
+export async function login(email, password) {
+  const respuesta = await fetch(`${API_URL}/login.php`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include', // MUY importante: hace que se envíen/reciban las cookies de sesión
+    body: JSON.stringify({ email, password }),
+  });
+
+  const datos = await respuesta.json();
+  return datos;
+}
+
+export async function verificarSesion() {
+  const respuesta = await fetch(`${API_URL}/verificar_sesion.php`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  const datos = await respuesta.json();
+  return datos;
+}
+
+export async function logout() {
+  const respuesta = await fetch(`${API_URL}/logout.php`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  const datos = await respuesta.json();
+  return datos;
+}
+
+export async function listarProductos() {
+  const respuesta = await fetch(`${API_URL}/listar_productos.php`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  const datos = await respuesta.json();
+  return datos;
+}
+export async function crearProducto(producto) {
+  const respuesta = await fetch(`${API_URL}/crear_producto.php`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(producto),
+  });
+
+  const datos = await respuesta.json();
+  return datos;
+}
+
+export async function listarCategorias() {
+  const respuesta = await fetch(`${API_URL}/listar_categorias.php`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  const datos = await respuesta.json();
+  return datos;
+}
+
+export async function eliminarProducto(id) {
+  const respuesta = await fetch(`${API_URL}/eliminar_producto.php`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ id }),
+  });
+
+  const datos = await respuesta.json();
+  return datos;
+}
+
+export async function actualizarProducto(producto) {
+  const respuesta = await fetch(`${API_URL}/actualizar_producto.php`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(producto),
+  });
+
+  const datos = await respuesta.json();
+  return datos;
+}
