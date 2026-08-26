@@ -4,6 +4,7 @@ import Productos from './pages/Productos';
 import Clientes from './pages/Clientes';
 import { verificarSesion, logout } from './services/api';
 import Ventas from './pages/Ventas';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -43,16 +44,18 @@ function App() {
       <hr />
 
       <nav>
+        <button onClick={() => setSeccionActiva('dashboard')}>Dashboard</button>{' '}
         <button onClick={() => setSeccionActiva('productos')}>Productos</button>{' '}
         <button onClick={() => setSeccionActiva('clientes')}>Clientes</button>
         <button onClick={() => setSeccionActiva('ventas')}>Ventas</button>
       </nav>
 
       <hr />
-
+      {seccionActiva === 'dashboard' && <Dashboard />}
       {seccionActiva === 'productos' && <Productos />}
       {seccionActiva === 'clientes' && <Clientes />}
-      {seccionActiva === 'ventas' && <Ventas />}  
+      {seccionActiva === 'ventas' && <Ventas />}
+  
     </div>
   );
 }

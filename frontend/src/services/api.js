@@ -153,3 +153,10 @@ export async function listarVentas() {
   return await respuesta.json();
 }
 
+export async function obtenerDashboard() {
+  const respuesta = await fetch(`${API_URL}/dashboard.php`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+  return await respuesta.json();
+}
