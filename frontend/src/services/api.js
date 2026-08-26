@@ -134,3 +134,22 @@ export async function eliminarCliente(id) {
   });
   return await respuesta.json();
 }
+
+export async function crearVenta(venta) {
+  const respuesta = await fetch(`${API_URL}/crear_venta.php`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(venta),
+  });
+  return await respuesta.json();
+}
+
+export async function listarVentas() {
+  const respuesta = await fetch(`${API_URL}/listar_ventas.php`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+  return await respuesta.json();
+}
+

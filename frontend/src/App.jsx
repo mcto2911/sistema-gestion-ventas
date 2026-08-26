@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Productos from './pages/Productos';
 import Clientes from './pages/Clientes';
 import { verificarSesion, logout } from './services/api';
+import Ventas from './pages/Ventas';
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -44,12 +45,14 @@ function App() {
       <nav>
         <button onClick={() => setSeccionActiva('productos')}>Productos</button>{' '}
         <button onClick={() => setSeccionActiva('clientes')}>Clientes</button>
+        <button onClick={() => setSeccionActiva('ventas')}>Ventas</button>
       </nav>
 
       <hr />
 
       {seccionActiva === 'productos' && <Productos />}
       {seccionActiva === 'clientes' && <Clientes />}
+      {seccionActiva === 'ventas' && <Ventas />}  
     </div>
   );
 }
