@@ -45,44 +45,37 @@ function Clientes() {
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
-    <div>
-      <FormularioCliente
-        clienteAEditar={clienteAEditar}
-        onGuardado={manejarGuardado}
-        onCancelar={() => setClienteAEditar(null)}
-      />
-
-      <h2>Clientes</h2>
-      {cargando ? (
-        <p>Cargando clientes...</p>
-      ) : (
-        <table border="1" cellPadding="8">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Teléfono</th>
-              <th>Dirección</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {clientes.map((cliente) => (
-              <tr key={cliente.id}>
-                <td>{cliente.nombre}</td>
-                <td>{cliente.email || '-'}</td>
-                <td>{cliente.telefono || '-'}</td>
-                <td>{cliente.direccion || '-'}</td>
-                <td>
-                  <button onClick={() => setClienteAEditar(cliente)}>Editar</button>{' '}
-                  <button onClick={() => manejarEliminar(cliente.id, cliente.nombre)}>Eliminar</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+   <div className="table-responsive">
+  <table className="table table-striped table-hover align-middle">
+    <thead className="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {clientes.map((cliente) => (
+        <tr key={cliente.id}>
+          <td>{cliente.nombre}</td>
+          <td>{cliente.email || '-'}</td>
+          <td>{cliente.telefono || '-'}</td>
+          <td>{cliente.direccion || '-'}</td>
+          <td>
+            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => setClienteAEditar(cliente)}>
+              Editar
+            </button>
+            <button className="btn btn-sm btn-outline-danger" onClick={() => manejarEliminar(cliente.id, cliente.nombre)}>
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
   );
 }
 

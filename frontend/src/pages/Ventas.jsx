@@ -121,128 +121,153 @@ useEffect(() => {
   }
 }
 
-  return (
-    <div>
-      <h2>Nueva venta</h2>
+ return (
+  <div>
+    <h2 className="mb-3">Nueva venta</h2>
 
-      <div>
-        <label>Cliente (opcional):</label>
-        <select value={clienteSeleccionado} onChange={(e) => setClienteSeleccionado(e.target.value)}>
-          <option value="">-- Cliente ocasional --</option>
-          {clientes.map((cliente) => (
-            <option key={cliente.id} value={cliente.id}>
-              {cliente.nombre}
-            </option>
-          ))}
-        </select>
+    <div className="card mb-4">
+      <div className="card-body">
+        <div className="row">
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Cliente (opcional)</label>
+            <select
+              className="form-select"
+              value={clienteSeleccionado}
+              onChange={(e) => setClienteSeleccionado(e.target.value)}
+            >
+              <option value="">-- Cliente ocasional --</option>
+              {clientes.map((cliente) => (
+                <option key={cliente.id} value={cliente.id}>
+                  {cliente.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <hr />
+
+        <h5>Agregar producto</h5>
+        <div className="row align-items-end">
+          <div className="col-md-6 mb-3">
+            <label className="form-label">Producto</label>
+            <select
+              className="form-select"
+              value={productoSeleccionado}
+              onChange={(e) => setProductoSeleccionado(e.target.value)}
+            >
+              <option value="">-- Selecciona un producto --</option>
+              {productosDisponibles.map((producto) => (
+                <option key={producto.id} value={producto.id}>
+                  {producto.nombre} (Stock: {producto.stock}) - S/ {producto.precio}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="col-md-2 mb-3">
+            <label className="form-label">Cantidad</label>
+            <input
+              type="number"
+              min="1"
+              className="form-control"
+              value={cantidad}
+              onChange={(e) => setCantidad(e.target.value)}
+            />
+          </div>
+
+          <div className="col-md-2 mb-3">
+            <button className="btn btn-primary w-100" onClick={agregarAlCarrito}>
+              Agregar
+            </button>
+          </div>
+        </div>
+
+        {error && <div className="alert alert-danger py-2">{error}</div>}
+        {mensajeExito && <div className="alert alert-success py-2">{mensajeExito}</div>}
+
+        <h5 className="mt-4">Carrito de venta</h5>
+        {carrito.length === 0 ? (
+          <p className="text-muted">Aún no has agregado productos.</p>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Precio unitario</th>
+                  <th>Cantidad</th>
+                  <th>Subtotal</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {carrito.map((item) => (
+                  <tr key={item.producto_id}>
+                    <td>{item.nombre}</td>
+                    <td>S/ {item.precio.toFixed(2)}</td>
+                    <td>{item.cantidad}</td>
+                    <td>S/ {(item.precio * item.cantidad).toFixed(2)}</td>
+                    <td>
+                      <button className="btn btn-sm btn-outline-danger" onClick={() => quitarDelCarrito(item.producto_id)}>
+                        Quitar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        <div className="d-flex justify-content-between align-items-center mt-3">
+          <h4 className="mb-0">Total: S/ {total.toFixed(2)}</h4>
+          <button className="btn btn-success btn-lg" onClick={confirmarVenta} disabled={enviando || carrito.length === 0}>
+            {enviando ? 'Registrando venta...' : 'Confirmar venta'}
+          </button>
+        </div>
       </div>
+    </div>
 
-      <h3>Agregar producto</h3>
-      <div>
-        <select value={productoSeleccionado} onChange={(e) => setProductoSeleccionado(e.target.value)}>
-          <option value="">-- Selecciona un producto --</option>
-          {productosDisponibles.map((producto) => (
-            <option key={producto.id} value={producto.id}>
-              {producto.nombre} (Stock: {producto.stock}) - S/ {producto.precio}
-            </option>
-          ))}
-        </select>
-
-        <input
-          type="number"
-          min="1"
-          value={cantidad}
-          onChange={(e) => setCantidad(e.target.value)}
-          style={{ width: '60px', marginLeft: '8px' }}
-        />
-
-        <button onClick={agregarAlCarrito} style={{ marginLeft: '8px' }}>
-          Agregar
-        </button>
-      </div>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {mensajeExito && <p style={{ color: 'green' }}>{mensajeExito}</p>}
-
-      <h3>Carrito de venta</h3>
-      {carrito.length === 0 ? (
-        <p>Aún no has agregado productos.</p>
-      ) : (
-        <table border="1" cellPadding="8">
-          <thead>
+    <h3 className="mb-3">Historial de ventas</h3>
+    {historialVentas.length === 0 ? (
+      <p className="text-muted">Aún no hay ventas registradas.</p>
+    ) : (
+      <div className="table-responsive">
+        <table className="table table-striped table-hover align-middle">
+          <thead className="table-dark">
             <tr>
-              <th>Producto</th>
-              <th>Precio unitario</th>
-              <th>Cantidad</th>
-              <th>Subtotal</th>
-              <th></th>
+              <th>Fecha</th>
+              <th>Cliente</th>
+              <th>Vendedor</th>
+              <th>Productos</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody>
-            {carrito.map((item) => (
-              <tr key={item.producto_id}>
-                <td>{item.nombre}</td>
-                <td>S/ {item.precio.toFixed(2)}</td>
-                <td>{item.cantidad}</td>
-                <td>S/ {(item.precio * item.cantidad).toFixed(2)}</td>
+            {historialVentas.map((venta) => (
+              <tr key={venta.id}>
+                <td>{venta.fecha}</td>
+                <td>{venta.cliente_nombre || 'Cliente ocasional'}</td>
+                <td>{venta.usuario_nombre}</td>
                 <td>
-                  <button onClick={() => quitarDelCarrito(item.producto_id)}>Quitar</button>
+                  <ul className="mb-0 ps-3">
+                    {venta.detalle.map((d) => (
+                      <li key={d.producto_id}>
+                        {d.producto_nombre} x{d.cantidad} (S/ {d.subtotal})
+                      </li>
+                    ))}
+                  </ul>
                 </td>
+                <td>S/ {venta.total}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      )}
-
-      <h3>Total: S/ {total.toFixed(2)}</h3>
-
-      <button onClick={confirmarVenta} disabled={enviando || carrito.length === 0}>
-        {enviando ? 'Registrando venta...' : 'Confirmar venta'}
-      </button>
-
-
-       <hr />
-<h3>Historial de ventas</h3>
-{historialVentas.length === 0 ? (
-  <p>Aún no hay ventas registradas.</p>
-) : (
-  <table border="1" cellPadding="8">
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Cliente</th>
-        <th>Vendedor</th>
-        <th>Productos</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {historialVentas.map((venta) => (
-        <tr key={venta.id}>
-          <td>{venta.fecha}</td>
-          <td>{venta.cliente_nombre || 'Cliente ocasional'}</td>
-          <td>{venta.usuario_nombre}</td>
-          <td>
-            <ul>
-              {venta.detalle.map((d) => (
-                <li key={d.producto_id}>
-                  {d.producto_nombre} x{d.cantidad} (S/ {d.subtotal})
-                </li>
-              ))}
-            </ul>
-          </td>
-          <td>S/ {venta.total}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-)}
-    </div>
-
-
-
-  );
-
+      </div>
+    )}
+  </div>
+);
   
 }
 

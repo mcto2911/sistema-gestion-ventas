@@ -35,29 +35,63 @@ function App() {
     return <Login onLoginExitoso={(datosUsuario) => setUsuario(datosUsuario)} />;
   }
 
-  return (
-    <div>
-      <h1>Bienvenido, {usuario.nombre}</h1>
-      <p>Rol: {usuario.rol}</p>
-      <button onClick={manejarLogout}>Cerrar sesión</button>
+ return (
+  <div>
+    <nav className="navbar navbar-dark bg-dark px-3">
+      <span className="navbar-brand mb-0 h1">Sistema de Ventas</span>
+      <div className="d-flex align-items-center">
+        <span className="text-white me-3">
+          {usuario.nombre} <span className="badge bg-secondary">{usuario.rol}</span>
+        </span>
+        <button className="btn btn-outline-light btn-sm" onClick={manejarLogout}>
+          Cerrar sesión
+        </button>
+      </div>
+    </nav>
 
-      <hr />
+    <div className="container mt-4">
+      <ul className="nav nav-pills mb-4">
+        <li className="nav-item">
+          <button
+            className={`nav-link ${seccionActiva === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setSeccionActiva('dashboard')}
+          >
+            Dashboard
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            className={`nav-link ${seccionActiva === 'productos' ? 'active' : ''}`}
+            onClick={() => setSeccionActiva('productos')}
+          >
+            Productos
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            className={`nav-link ${seccionActiva === 'clientes' ? 'active' : ''}`}
+            onClick={() => setSeccionActiva('clientes')}
+          >
+            Clientes
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            className={`nav-link ${seccionActiva === 'ventas' ? 'active' : ''}`}
+            onClick={() => setSeccionActiva('ventas')}
+          >
+            Ventas
+          </button>
+        </li>
+      </ul>
 
-      <nav>
-        <button onClick={() => setSeccionActiva('dashboard')}>Dashboard</button>{' '}
-        <button onClick={() => setSeccionActiva('productos')}>Productos</button>{' '}
-        <button onClick={() => setSeccionActiva('clientes')}>Clientes</button>
-        <button onClick={() => setSeccionActiva('ventas')}>Ventas</button>
-      </nav>
-
-      <hr />
       {seccionActiva === 'dashboard' && <Dashboard />}
       {seccionActiva === 'productos' && <Productos />}
       {seccionActiva === 'clientes' && <Clientes />}
       {seccionActiva === 'ventas' && <Ventas />}
-  
     </div>
-  );
+  </div>
+);
 }
 
 export default App;

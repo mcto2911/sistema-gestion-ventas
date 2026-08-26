@@ -24,36 +24,43 @@ function Login({ onLoginExitoso }) {
   }
 
   return (
-    <div>
-      <h2>Iniciar sesión</h2>
-      <form onSubmit={manejarSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Contraseña:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+  <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh', backgroundColor: '#f4f6f9' }}>
+    <div className="card shadow-sm" style={{ width: '380px' }}>
+      <div className="card-body p-4">
+        <h3 className="text-center mb-4">Iniciar sesión</h3>
+        <form onSubmit={manejarSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+          <div className="mb-3">
+            <label className="form-label">Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        <button type="submit" disabled={cargando}>
-          {cargando ? 'Ingresando...' : 'Ingresar'}
-        </button>
-      </form>
+          {error && <div className="alert alert-danger py-2">{error}</div>}
+
+          <button type="submit" className="btn btn-primary w-100" disabled={cargando}>
+            {cargando ? 'Ingresando...' : 'Ingresar'}
+          </button>
+        </form>
+      </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default Login;

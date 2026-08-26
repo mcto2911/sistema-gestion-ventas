@@ -77,38 +77,81 @@ function FormularioProducto({ productoAEditar, onGuardado, onCancelar }) {
     }
   }
 
-  return (
-    <div>
-      <h3>{estaEditando ? 'Editar producto' : 'Nuevo producto'}</h3>
+ return (
+  <div className="card mb-4">
+    <div className="card-body">
+      <h3 className="card-title mb-3">{estaEditando ? 'Editar producto' : 'Nuevo producto'}</h3>
       <form onSubmit={manejarSubmit}>
-        <div>
-          <label>Nombre:</label>
-          <input type="text" name="nombre" value={formulario.nombre} onChange={manejarCambio} required />
+        <div className="mb-3">
+          <label className="form-label">Nombre</label>
+          <input
+            type="text"
+            className="form-control"
+            name="nombre"
+            value={formulario.nombre}
+            onChange={manejarCambio}
+            required
+          />
         </div>
 
-        <div>
-          <label>Descripción:</label>
-          <input type="text" name="descripcion" value={formulario.descripcion} onChange={manejarCambio} />
+        <div className="mb-3">
+          <label className="form-label">Descripción</label>
+          <input
+            type="text"
+            className="form-control"
+            name="descripcion"
+            value={formulario.descripcion}
+            onChange={manejarCambio}
+          />
         </div>
 
-        <div>
-          <label>Precio:</label>
-          <input type="number" step="0.01" name="precio" value={formulario.precio} onChange={manejarCambio} required />
+        <div className="row">
+          <div className="col-md-4 mb-3">
+            <label className="form-label">Precio</label>
+            <input
+              type="number"
+              step="0.01"
+              className="form-control"
+              name="precio"
+              value={formulario.precio}
+              onChange={manejarCambio}
+              required
+            />
+          </div>
+
+          <div className="col-md-4 mb-3">
+            <label className="form-label">Stock</label>
+            <input
+              type="number"
+              className="form-control"
+              name="stock"
+              value={formulario.stock}
+              onChange={manejarCambio}
+              required
+            />
+          </div>
+
+          <div className="col-md-4 mb-3">
+            <label className="form-label">Stock mínimo</label>
+            <input
+              type="number"
+              className="form-control"
+              name="stock_minimo"
+              value={formulario.stock_minimo}
+              onChange={manejarCambio}
+            />
+          </div>
         </div>
 
-        <div>
-          <label>Stock:</label>
-          <input type="number" name="stock" value={formulario.stock} onChange={manejarCambio} required />
-        </div>
-
-        <div>
-          <label>Stock mínimo:</label>
-          <input type="number" name="stock_minimo" value={formulario.stock_minimo} onChange={manejarCambio} />
-        </div>
-
-        <div>
-          <label>Categoría:</label>
-          <select name="categoria_id" value={formulario.categoria_id} onChange={manejarCambio} required>
+        <div className="mb-3">
+          <label className="form-label">Categoría</label>
+          <select
+            className="form-select"
+            name="categoria_id"
+            value={formulario.categoria_id}
+            onChange={manejarCambio}
+            required
+          >
             <option value="">-- Selecciona una categoría --</option>
             {categorias.map((categoria) => (
               <option key={categoria.id} value={categoria.id}>
@@ -118,20 +161,21 @@ function FormularioProducto({ productoAEditar, onGuardado, onCancelar }) {
           </select>
         </div>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <div className="alert alert-danger py-2">{error}</div>}
 
-        <button type="submit" disabled={enviando}>
+        <button type="submit" className="btn btn-primary" disabled={enviando}>
           {enviando ? 'Guardando...' : estaEditando ? 'Actualizar producto' : 'Guardar producto'}
         </button>
 
         {estaEditando && (
-          <button type="button" onClick={onCancelar}>
+          <button type="button" className="btn btn-secondary ms-2" onClick={onCancelar}>
             Cancelar edición
           </button>
         )}
       </form>
     </div>
-  );
+  </div>
+);
 }
 
 export default FormularioProducto;

@@ -45,46 +45,41 @@ function Productos() {
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
-    <div>
-      <FormularioProducto
-        productoAEditar={productoAEditar}
-        onGuardado={manejarGuardado}
-        onCancelar={() => setProductoAEditar(null)}
-      />
-
-      <h2>Productos</h2>
-      {cargando ? (
-        <p>Cargando productos...</p>
-      ) : (
-        <table border="1" cellPadding="8">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Precio</th>
-              <th>Stock</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {productos.map((producto) => (
-              <tr key={producto.id}>
-                <td>{producto.nombre}</td>
-                <td>{producto.categoria_nombre}</td>
-                <td>S/ {producto.precio}</td>
-                <td style={{ color: Number(producto.stock) <= Number(producto.stock_minimo) ? 'red' : 'black' }}>
-                  {producto.stock}
-                </td>
-                <td>
-                  <button onClick={() => setProductoAEditar(producto)}>Editar</button>{' '}
-                  <button onClick={() => manejarEliminar(producto.id, producto.nombre)}>Eliminar</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+    <div className="table-responsive">
+  <table className="table table-striped table-hover align-middle">
+    <thead className="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {productos.map((producto) => (
+        <tr key={producto.id}>
+          <td>{producto.nombre}</td>
+          <td>{producto.categoria_nombre}</td>
+          <td>S/ {producto.precio}</td>
+          <td>
+            <span className={Number(producto.stock) <= Number(producto.stock_minimo) ? 'badge bg-danger' : 'badge bg-success'}>
+              {producto.stock}
+            </span>
+          </td>
+          <td>
+            <button className="btn btn-sm btn-outline-primary me-2" onClick={() => setProductoAEditar(producto)}>
+              Editar
+            </button>
+            <button className="btn btn-sm btn-outline-danger" onClick={() => manejarEliminar(producto.id, producto.nombre)}>
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
   );
 }
 

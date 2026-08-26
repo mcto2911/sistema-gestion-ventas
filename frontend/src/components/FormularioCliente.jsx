@@ -59,43 +59,70 @@ function FormularioCliente({ clienteAEditar, onGuardado, onCancelar }) {
   }
 
   return (
-    <div>
-      <h3>{estaEditando ? 'Editar cliente' : 'Nuevo cliente'}</h3>
+  <div className="card mb-4">
+    <div className="card-body">
+      <h3 className="card-title mb-3">{estaEditando ? 'Editar cliente' : 'Nuevo cliente'}</h3>
       <form onSubmit={manejarSubmit}>
-        <div>
-          <label>Nombre:</label>
-          <input type="text" name="nombre" value={formulario.nombre} onChange={manejarCambio} required />
+        <div className="mb-3">
+          <label className="form-label">Nombre</label>
+          <input
+            type="text"
+            className="form-control"
+            name="nombre"
+            value={formulario.nombre}
+            onChange={manejarCambio}
+            required
+          />
         </div>
 
-        <div>
-          <label>Email:</label>
-          <input type="email" name="email" value={formulario.email} onChange={manejarCambio} />
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input
+            type="email"
+            className="form-control"
+            name="email"
+            value={formulario.email}
+            onChange={manejarCambio}
+          />
         </div>
 
-        <div>
-          <label>Teléfono:</label>
-          <input type="text" name="telefono" value={formulario.telefono} onChange={manejarCambio} />
+        <div className="mb-3">
+          <label className="form-label">Teléfono</label>
+          <input
+            type="text"
+            className="form-control"
+            name="telefono"
+            value={formulario.telefono}
+            onChange={manejarCambio}
+          />
         </div>
 
-        <div>
-          <label>Dirección:</label>
-          <input type="text" name="direccion" value={formulario.direccion} onChange={manejarCambio} />
+        <div className="mb-3">
+          <label className="form-label">Dirección</label>
+          <input
+            type="text"
+            className="form-control"
+            name="direccion"
+            value={formulario.direccion}
+            onChange={manejarCambio}
+          />
         </div>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <div className="alert alert-danger py-2">{error}</div>}
 
-        <button type="submit" disabled={enviando}>
+        <button type="submit" className="btn btn-primary" disabled={enviando}>
           {enviando ? 'Guardando...' : estaEditando ? 'Actualizar cliente' : 'Guardar cliente'}
         </button>
 
         {estaEditando && (
-          <button type="button" onClick={onCancelar}>
+          <button type="button" className="btn btn-secondary ms-2" onClick={onCancelar}>
             Cancelar edición
           </button>
         )}
       </form>
     </div>
-  );
+  </div>
+);
 }
 
 export default FormularioCliente;
