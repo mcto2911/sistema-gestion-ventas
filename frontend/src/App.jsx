@@ -86,9 +86,9 @@ function App() {
       </ul>
 
       {seccionActiva === 'dashboard' && <Dashboard />}
-      {seccionActiva === 'productos' && <Productos />}
-      {seccionActiva === 'clientes' && <Clientes />}
-      {seccionActiva === 'ventas' && <Ventas />}
+{seccionActiva === 'productos' && <Productos usuario={usuario} />}
+{seccionActiva === 'clientes' && <Clientes usuario={usuario} />}
+{seccionActiva === 'ventas' && <Ventas />}
     </div>
   </div>
 );

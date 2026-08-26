@@ -1,8 +1,21 @@
 <?php
-// eliminar_cliente.php - Elimina un cliente
+// eliminar_cliente.php - Elimina un cliente - Solo administradores
 
 require 'config.php';
+session_start();
 header('Content-Type: application/json');
+
+if (!isset($_SESSION['usuario_id'])) {
+    http_response_code(401);
+    echo json_encode(['exito' => false, 'mensaje' => 'Debes iniciar sesión']);
+    exit;
+}
+
+if ($_SESSION['usuario_rol'] !== 'administrador') {
+    http_response_code(403);
+    echo json_encode(['exito' => false, 'mensaje' => 'No tienes permisos para eliminar clientes']);
+    exit;
+}
 
 $datos = json_decode(file_get_contents('php://input'), true);
 $id = $datos['id'] ?? null;
@@ -29,7 +42,6 @@ try {
     ]);
 
 } catch (PDOException $e) {
-    // Si el cliente tiene ventas asociadas, la Foreign Key bloquea el DELETE (ON DELETE SET NULL en este caso)
     http_response_code(500);
     echo json_encode([
         'exito' => false,
