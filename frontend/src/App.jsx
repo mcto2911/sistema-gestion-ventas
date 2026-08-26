@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import Login from './pages/Login';
-import { verificarSesion, logout } from './services/api';
 import Productos from './pages/Productos';
+import Clientes from './pages/Clientes';
+import { verificarSesion, logout } from './services/api';
 
 function App() {
   const [usuario, setUsuario] = useState(null);
   const [cargandoSesion, setCargandoSesion] = useState(true);
+  const [seccionActiva, setSeccionActiva] = useState('productos');
 
-  // useEffect: se ejecuta al cargar el componente por primera vez.
-  // Aquí revisamos si ya había una sesión activa (por si recargas la página).
   useEffect(() => {
     async function checarSesion() {
       const respuesta = await verificarSesion();
@@ -18,7 +18,7 @@ function App() {
       setCargandoSesion(false);
     }
     checarSesion();
-  }, []); // el array vacío [] significa: "ejecuta esto solo UNA VEZ"
+  }, []);
 
   async function manejarLogout() {
     await logout();
@@ -29,19 +29,27 @@ function App() {
     return <p>Cargando...</p>;
   }
 
+  if (!usuario) {
+    return <Login onLoginExitoso={(datosUsuario) => setUsuario(datosUsuario)} />;
+  }
+
   return (
     <div>
-      {usuario ? (
-  <div>
-    <h1>Bienvenido, {usuario.nombre}</h1>
-    <p>Rol: {usuario.rol}</p>
-    <button onClick={manejarLogout}>Cerrar sesión</button>
-    <hr />
-    <Productos />
-  </div>
-) : (
-  <Login onLoginExitoso={(datosUsuario) => setUsuario(datosUsuario)} />
-)}
+      <h1>Bienvenido, {usuario.nombre}</h1>
+      <p>Rol: {usuario.rol}</p>
+      <button onClick={manejarLogout}>Cerrar sesión</button>
+
+      <hr />
+
+      <nav>
+        <button onClick={() => setSeccionActiva('productos')}>Productos</button>{' '}
+        <button onClick={() => setSeccionActiva('clientes')}>Clientes</button>
+      </nav>
+
+      <hr />
+
+      {seccionActiva === 'productos' && <Productos />}
+      {seccionActiva === 'clientes' && <Clientes />}
     </div>
   );
 }

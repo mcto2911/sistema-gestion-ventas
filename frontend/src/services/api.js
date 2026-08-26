@@ -96,3 +96,41 @@ export async function actualizarProducto(producto) {
   const datos = await respuesta.json();
   return datos;
 }
+
+export async function listarClientes() {
+  const respuesta = await fetch(`${API_URL}/listar_clientes.php`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+  return await respuesta.json();
+}
+
+export async function crearCliente(cliente) {
+  const respuesta = await fetch(`${API_URL}/crear_cliente.php`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(cliente),
+  });
+  return await respuesta.json();
+}
+
+export async function actualizarCliente(cliente) {
+  const respuesta = await fetch(`${API_URL}/actualizar_cliente.php`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(cliente),
+  });
+  return await respuesta.json();
+}
+
+export async function eliminarCliente(id) {
+  const respuesta = await fetch(`${API_URL}/eliminar_cliente.php`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ id }),
+  });
+  return await respuesta.json();
+}
