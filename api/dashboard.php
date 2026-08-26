@@ -30,7 +30,7 @@ try {
     $stmt->execute();
     $totalClientes = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 
-    // ---- Productos con stock bajo (stock <= stock_minimo) ----
+    // ---- Productos con stock bajo ----
     $stmt = $pdo->prepare(
         "SELECT id, nombre, stock, stock_minimo
          FROM productos
@@ -40,19 +40,35 @@ try {
     $stmt->execute();
     $stockBajo = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // ---- Productos más vendidos (top 5, por cantidad total vendida) ----
+    // ---- Productos más vendidos (ahora con stock y categoría) ----
     $stmt = $pdo->prepare(
-        "SELECT p.id, p.nombre, SUM(dv.cantidad) AS total_vendido
+        "SELECT p.id, p.nombre, p.stock, c.nombre AS categoria_nombre, SUM(dv.cantidad) AS total_vendido
          FROM detalle_venta dv
          INNER JOIN productos p ON dv.producto_id = p.id
+         INNER JOIN categorias c ON p.categoria_id = c.id
          INNER JOIN ventas v ON dv.venta_id = v.id
          WHERE v.estado = 'completada'
-         GROUP BY p.id, p.nombre
+         GROUP BY p.id, p.nombre, p.stock, c.nombre
          ORDER BY total_vendido DESC
          LIMIT 5"
     );
     $stmt->execute();
     $masVendidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // ---- NUEVO: Ventas de los últimos 6 meses (para el gráfico) ----
+    $stmt = $pdo->prepare(
+        "SELECT 
+            DATE_FORMAT(fecha, '%Y-%m') AS mes,
+            DATE_FORMAT(fecha, '%b') AS mes_nombre,
+            COALESCE(SUM(total), 0) AS total
+         FROM ventas
+         WHERE fecha >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH)
+           AND estado = 'completada'
+         GROUP BY mes, mes_nombre
+         ORDER BY mes ASC"
+    );
+    $stmt->execute();
+    $ventasPorMes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
         'exito' => true,
@@ -62,6 +78,7 @@ try {
             'total_clientes' => (int) $totalClientes,
             'stock_bajo' => $stockBajo,
             'mas_vendidos' => $masVendidos,
+            'ventas_por_mes' => $ventasPorMes,
         ]
     ]);
 

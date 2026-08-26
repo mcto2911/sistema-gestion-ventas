@@ -78,7 +78,7 @@ function FormularioProducto({ productoAEditar, onGuardado, onCancelar }) {
   }
 
  return (
-  <div className="card mb-4">
+  <div className="card mb-4" style={{ border: 'none', borderTop: '4px solid var(--color-primary)' }}>
     <div className="card-body">
       <h3 className="card-title mb-3">{estaEditando ? 'Editar producto' : 'Nuevo producto'}</h3>
       <form onSubmit={manejarSubmit}>
@@ -163,7 +163,18 @@ function FormularioProducto({ productoAEditar, onGuardado, onCancelar }) {
 
         {error && <div className="alert alert-danger py-2">{error}</div>}
 
-        <button type="submit" className="btn btn-primary" disabled={enviando}>
+        <button
+  type="submit"
+  disabled={enviando}
+  style={{
+    backgroundColor: 'var(--color-primary)',
+    border: 'none',
+    color: 'white',
+    padding: '8px 20px',
+    borderRadius: '6px',
+    fontWeight: 600,
+  }}
+>
           {enviando ? 'Guardando...' : estaEditando ? 'Actualizar producto' : 'Guardar producto'}
         </button>
 
