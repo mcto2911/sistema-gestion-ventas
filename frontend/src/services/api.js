@@ -159,4 +159,31 @@ export async function obtenerDashboard() {
     credentials: 'include',
   });
   return await respuesta.json();
+
+}
+
+export async function cambiarPassword(contrasenaActual, contrasenaNueva) {
+  try {
+    const response = await fetch(`${API_URL}/cambiar_password.php`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        contrasena_actual: contrasenaActual,
+        contrasena_nueva: contrasenaNueva,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { exito: false, mensaje: data.mensaje || 'Error desconocido' };
+    }
+
+    return { exito: true, mensaje: data.mensaje };
+  } catch (error) {
+    return { exito: false, mensaje: 'Error de conexión: ' + error.message };
+  }
 }
