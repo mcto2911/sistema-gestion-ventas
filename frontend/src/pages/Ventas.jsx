@@ -138,7 +138,7 @@ function Ventas() {
 
       <div className="row align-items-start">
         {/* Columna izquierda: nueva venta */}
-        <div className="col-lg-4 mb-4 columna-fija">
+        <div className="col-lg-4 col-12 mb-4 columna-fija">
           <div className="card tarjeta-marca shadow-sm">
             <div className="card-body">
               <h5 className="mb-3">Nueva venta</h5>
@@ -225,7 +225,7 @@ function Ventas() {
         </div>
 
         {/* Columna central: historial */}
-        <div className="col-lg-5 mb-4">
+  <div className="col-lg-5 col-12 mb-4">
           <div className="card tarjeta-marca shadow-sm">
             <div className="card-body">
               <h5 className="mb-3">Historial de ventas</h5>
@@ -264,7 +264,7 @@ function Ventas() {
         </div>
 
         {/* Columna derecha: resumen */}
-        <div className="col-lg-3 mb-4 columna-fija">
+  <div className="col-lg-3 col-12 mb-4 columna-fija">
           <div className="panel-lateral mb-3">
             <h6 className="mb-2">Ventas de hoy</h6>
             <p className="dato-numerico" style={{ fontSize: '1.5rem', margin: 0, fontWeight: 700, color: 'var(--color-primary-dark)' }}>

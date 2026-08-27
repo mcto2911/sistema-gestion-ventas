@@ -90,7 +90,7 @@ function Productos({ usuario }) {
 
       <div className="row align-items-start">
   {/* Columna izquierda: formulario */}
-  <div className="col-lg-4 mb-4 columna-fija">
+   <div className="col-lg-4 col-12 mb-4 columna-fija">
     <FormularioProducto
       productoAEditar={productoAEditar}
       onGuardado={manejarGuardado}
@@ -99,7 +99,7 @@ function Productos({ usuario }) {
   </div>
 
   {/* Columna central: catálogo */}
-  <div className="col-lg-5 mb-4">
+   <div className="col-lg-5 col-12 mb-4">
     <div className="card tarjeta-marca shadow-sm">
       <div className="card-body">
         <h5 className="mb-3">Catálogo de productos</h5>
@@ -189,7 +189,7 @@ function Productos({ usuario }) {
   </div>
 
   {/* Columna derecha: resumen de inventario */}
-  <div className="col-lg-3 mb-4 columna-fija">
+  <div className="col-lg-3 col-12 mb-4 columna-fija">
     <div className="panel-lateral mb-3">
       <h6 className="mb-3">Resumen de inventario</h6>
       <div className="d-flex" style={{ gap: '10px' }}>

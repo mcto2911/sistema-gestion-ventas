@@ -59,7 +59,7 @@ function Clientes({ usuario }) {
 
       <div className="row align-items-start">
         {/* Columna izquierda: formulario */}
-        <div className="col-lg-4 mb-4 columna-fija">
+        <div className="col-lg-4 col-12 mb-4 columna-fija">
           <FormularioCliente
             clienteAEditar={clienteAEditar}
             onGuardado={manejarGuardado}
@@ -68,7 +68,7 @@ function Clientes({ usuario }) {
         </div>
 
         {/* Columna central: catálogo de clientes */}
-        <div className="col-lg-5 mb-4">
+        <div className="col-lg-5 col-12 mb-4">
           <div className="card tarjeta-marca shadow-sm">
             <div className="card-body">
               <h5 className="mb-3">Catálogo de clientes</h5>
@@ -131,7 +131,7 @@ function Clientes({ usuario }) {
         </div>
 
         {/* Columna derecha: resumen */}
-        <div className="col-lg-3 mb-4 columna-fija">
+        <div className="col-lg-3 col-12 mb-4 columna-fija">
           <div className="panel-lateral mb-3">
             <h6 className="mb-3">Resumen de clientes</h6>
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Total registrados</p>

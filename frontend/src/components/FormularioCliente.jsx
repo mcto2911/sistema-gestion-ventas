@@ -59,7 +59,7 @@ function FormularioCliente({ clienteAEditar, onGuardado, onCancelar }) {
   }
 
   return (
-  <div className="card mb-4">
+  <div className="card tarjeta-marca mb-4">
     <div className="card-body">
       <h3 className="card-title mb-3">{estaEditando ? 'Editar cliente' : 'Nuevo cliente'}</h3>
       <form onSubmit={manejarSubmit}>
@@ -110,7 +110,7 @@ function FormularioCliente({ clienteAEditar, onGuardado, onCancelar }) {
 
         {error && <div className="alert alert-danger py-2">{error}</div>}
 
-        <button type="submit" className="btn btn-primary" disabled={enviando}>
+        <button type="submit" className="btn-marca w-100" disabled={enviando}>
           {enviando ? 'Guardando...' : estaEditando ? 'Actualizar cliente' : 'Guardar cliente'}
         </button>
 

@@ -288,3 +288,10 @@ h1, h2, h3, h4, h5 {
   padding: 16px;
   margin-bottom: 14px;
 }
+
+@media (max-width: 991px) {
+  .columna-fija {
+    position: static !important;
+    top: auto !important;
+  }
+}
