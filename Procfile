@@ -1,0 +1,1 @@
+web: cd frontend && npm install && npm run build && cd .. && php -S 0.0.0.0:${PORT:-80} -t .
